@@ -1,6 +1,5 @@
 # dialog
 js dialog弹窗
-例子见[DEMO](http://www.lovewebgames.com/jsmodule/dialog.html)  
 
 # 用法
 
@@ -51,6 +50,49 @@ js dialog弹窗
 			this.hide();
 		});
 	})
+
+
+# 扩展方法
+添加imgad：首页的弹窗广告，toast,prompt：带输入框的confirm,declare，使用帮助以及用户协议
+
+```
+$.imgad('http://oankigr4l.bkt.clouddn.com/8192dd88gy1fkekqy1wj6j20q10ecjsz.jpg', function() {
+        this.hide();
+    })
+
+    $.toast('控制超时', 3000, function() {
+        console.log('xxx')
+    })
+
+    $.prompt({bar: "新建价格分组", content: '珠海分组'}, null, function(type, input, c) {
+        if(type == 'yes') {
+            $.toast(input, 3000, function() {
+                console.log(c)
+            })
+            this.hide();
+        } else {
+            $.toast(input, 3000, function() {
+
+                console.log(c)
+            })
+            this.hide();
+        }
+
+    })
+
+    $.declare({bar: "使用帮助", content: txt}, [{'yes':'确认'}], function(type, input, c) {
+        if(type == 'yes') {
+            $.toast('完成', 3000, function() {
+                console.log(c)
+            })
+            this.hide();
+        } else {
+
+        }
+
+    })
+```
+
 # 属性或方法
 ## 属性
 ### trigger:

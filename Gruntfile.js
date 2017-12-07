@@ -1,9 +1,7 @@
-/*
- * Created with Sublime Text 2.
- * User: 田想兵
- * Date: 2015-03-14
- * Time: 22:14:51
- * Contact: 55342775@qq.com
+/**
+ * zhyjor
+ * https://github.com/zhyjor/widget-dialog
+ *
  */
 
 var fs = require("fs");

@@ -1,12 +1,8 @@
-/*
- * Created with Sublime Text 2.
- * github: https://github.com/tianxiangbing/dialog
- * demo地址: http://www.lovewebgames.com/jsmodule/index.html
- * User: 田想兵
- * Date: 2015-03-16
- * Time: 20:27:54
- * Contact: 55342775@qq.com
- * Desc: 确保代码最新及时修复bug，请去github上下载最新源码 https://github.com/tianxiangbing/dialog
+/**
+ * zhyjor
+ *
+ * https://github.com/zhyjor/widget-dialog
+ *
  */
 ;
 (function(root, factory) {
