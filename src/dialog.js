@@ -503,7 +503,8 @@
         },
         touch: function(obj, fn) {
             var move;
-            $(obj).on('click', click);
+            //在某些浏览器里，如微信旧版本的iphone5s会出现闪一下就消失
+            // $(obj).on('click', click);
 
             function click(e) {
                 return fn.call(this, e);
