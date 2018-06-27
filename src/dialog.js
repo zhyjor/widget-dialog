@@ -64,8 +64,10 @@
                 }, settings.timer);
             }
             alert.touch(alert.mask, function() {
-                alert.hide();
-                settings.callback && settings.callback();
+                if(typeof settings.button !== 'boolean') {
+                    alert.hide();
+                    settings.callback && settings.callback();
+                }
             });
         }
         if(settings.type === "confirm") {
