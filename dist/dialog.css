@@ -261,4 +261,8 @@
 .ui-imgad {
   background: transparent; }
 
+.ui-toast-title {
+  line-height: 1.2;
+  padding: 10px 20px; }
+
 /*# sourceMappingURL=dialog.css.map */

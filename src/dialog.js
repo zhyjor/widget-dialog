@@ -394,14 +394,12 @@
         if (typeof content == 'object') {
             options = $.extend(defaults, content);
         } else {
-            var charLength = content.length;
-            var wid = Number(charLength) * 14 + 28;
             options = $.extend(defaults, {
                 content: content,
                 timer: _timer,
                 callback: callback,
-                width: wid || 283,
                 mask: false,
+                width: 'none',
                 height: 'auto'
             });
         }
@@ -682,7 +680,7 @@
                 var mt = this.height / 2;
                 var left = clientWidth / 2 - ml;
                 var top = clientHeight / 2 - mt;
-                left = Math.floor(Math.max(0, left));
+                left = Math.floor(Math.max(20, left));
                 top = Math.floor(Math.max(0, top));
                 console.log("ch:" + clientHeight, "cw:" + clientWidth, "left:" + left, "top:" + top, "w:" + this.width, "h:" + this.height);
                 var position = 'absolute';
@@ -700,6 +698,7 @@
                     position: position,
                     top: top,
                     left: left,
+                    right: left,
                     bottom: bottom
                 });
             }

@@ -45,37 +45,37 @@
 //        console.log('xxx')
 //    })
 
-    $.toast('控制超时',null,function () {
-        console.log(11)
-    })
+    // $.toast('这是一个控制',300000,function () {
+    //     console.log(11)
+    // })
 
-   // $.prompt({bar: "新建价格分组", content: '',placeholder:'新建价格分组'}, null, function(type, input, c) {
+   $.prompt({bar: "新建价格分组", content: '珠海分组',placeholder:'新建价格分组'}, null, function(type, input, c) {
+       if(type == 'yes') {
+           $.toast(input, 3000, function() {
+               console.log(c)
+           })
+           this.hide();
+       } else {
+           $.toast(input, 3000, function() {
+
+               console.log(c)
+           })
+           this.hide();
+       }
+
+   })
+
+   // $.declare({bar: "使用帮助", content: txt}, [{'yes':'确认'}], function(type, input, c) {
    //     if(type == 'yes') {
-   //         $.toast(input, 3000, function() {
+   //         $.toast('完成', 3000, function() {
    //             console.log(c)
    //         })
    //         this.hide();
    //     } else {
-   //         $.toast(input, 3000, function() {
    //
-   //             console.log(c)
-   //         })
-   //         this.hide();
    //     }
    //
    // })
-
-//    $.declare({bar: "使用帮助", content: txt}, [{'yes':'确认'}], function(type, input, c) {
-//        if(type == 'yes') {
-//            $.toast('完成', 3000, function() {
-//                console.log(c)
-//            })
-//            this.hide();
-//        } else {
-//
-//        }
-//
-//    })
 
 
 </script>
