@@ -5,7 +5,7 @@
  *
  */
 ;
-(function (root, factory) {
+(function(root, factory) {
     //amd
     if (typeof define === 'function' && define.amd) {
         define(["jquery"], factory);
@@ -15,10 +15,10 @@
         //bower
         root.Dialog = factory(jQuery);
     }
-})(this, function ($) {
-    $.fn.Dialog = function (settings) {
+})(this, function($) {
+    $.fn.Dialog = function(settings) {
         var list = [];
-        $(this).each(function () {
+        $(this).each(function() {
             var dialog = new Dialog();
             var options = $.extend({
                 trigger: $(this)
@@ -28,7 +28,7 @@
         });
         return list;
     };
-    $.Dialog = function (settings) {
+    $.Dialog = function(settings) {
         if (settings.type === "alert") {
             var alert = new Dialog();
             var html = '<div class="ui-alert-title">' + settings.content + '</div>';
@@ -51,19 +51,19 @@
                 show: true,
                 mask: true,
                 className: className,
-                afterHide: function (c) {
+                afterHide: function(c) {
                     this.dispose();
                     settings.callback && settings.callback();
                 }
             }, settings);
             alert.init(alertOptions);
             if (settings.timer) {
-                setTimeout(function () {
+                setTimeout(function() {
                     alert.dispose();
                     settings.callback && settings.callback();
                 }, settings.timer);
             }
-            alert.touch(alert.mask, function () {
+            alert.touch(alert.mask, function() {
                 if (typeof settings.button == 'undefined') {
                     alert.hide();
                     settings.callback && settings.callback();
@@ -108,17 +108,17 @@
                 fixed: true,
                 mask: true,
                 className: "ui-alert",
-                afterHide: function (c) {
+                afterHide: function(c) {
                     this.dispose();
                 },
-                beforeShow: function (c) {
-                    dialog.touch($('.ui-confirm-submit', c), function () {
+                beforeShow: function(c) {
+                    dialog.touch($('.ui-confirm-submit', c), function() {
                         settings.callback && settings.callback.call(dialog, 'yes', c);
                     });
-                    dialog.touch($('.ui-confirm-no', c), function () {
+                    dialog.touch($('.ui-confirm-no', c), function() {
                         settings.callback && settings.callback.call(dialog, 'no', c);
                     });
-                    dialog.touch($('.ui-confirm-close', c), function () {
+                    dialog.touch($('.ui-confirm-close', c), function() {
                         settings.callback && settings.callback.call(dialog, 'close', c);
                     });
                 }
@@ -163,17 +163,17 @@
                 fixed: true,
                 mask: true,
                 className: "ui-alert",
-                afterHide: function (c) {
+                afterHide: function(c) {
                     this.dispose();
                 },
-                beforeShow: function (c) {
-                    dialog.touch($('.ui-declare-submit', c), function () {
+                beforeShow: function(c) {
+                    dialog.touch($('.ui-declare-submit', c), function() {
                         settings.callback && settings.callback.call(dialog, 'yes', c);
                     });
-                    dialog.touch($('.ui-declare-no', c), function () {
+                    dialog.touch($('.ui-declare-no', c), function() {
                         settings.callback && settings.callback.call(dialog, 'no', c);
                     });
-                    dialog.touch($('.ui-declare-close', c), function () {
+                    dialog.touch($('.ui-declare-close', c), function() {
                         settings.callback && settings.callback.call(dialog, 'close', c);
                     });
                 }
@@ -221,21 +221,89 @@
                 fixed: true,
                 mask: true,
                 className: "ui-alert",
-                afterHide: function (c) {
+                afterHide: function(c) {
                     this.dispose();
                 },
-                beforeShow: function (c) {
+                beforeShow: function(c) {
                     dialog.inputCheck($('.ui-prompt-input'), false);
-                    dialog.touch($('.ui-prompt-submit', c), function () {
+                    dialog.touch($('.ui-prompt-submit', c), function() {
                         if (dialog.inputCheck($('.ui-prompt-input'), true)) {
                             settings.callback && settings.callback.call(dialog, 'yes', $('.ui-prompt-input').val(), c);
                         }
 
                     });
-                    dialog.touch($('.ui-prompt-no', c), function () {
+                    dialog.touch($('.ui-prompt-no', c), function() {
                         settings.callback && settings.callback.call(dialog, 'no', $('.ui-prompt-input').val(), c);
                     });
-                    dialog.touch($('.ui-prompt-close', c), function () {
+                    dialog.touch($('.ui-prompt-close', c), function() {
+                        settings.callback && settings.callback.call(dialog, 'close', $('.ui-prompt-input').val(), c);
+                    });
+
+                }
+            }, settings);
+            dialog.init(options);
+        }
+        if (settings.type === "pwinput") {
+            var dialog = new Dialog();
+            var inputHtml = ''
+            if (settings.inputLength) {
+                for (var i = 0; i < settings.inputLength; i++) {
+                    inputHtml += '<input class="ui-pwinput-input" value="1">'
+                }
+            }
+            var html = ' <div class="ui-pwinput-head">' + settings.bar + '</div>' +
+                '<div class="ui-pwinput-title">' +
+                inputHtml + '</div>';
+            var action = '';
+            if (!settings.buttons) {
+                settings.buttons = [{
+                    'yes': '确定'
+                }, {
+                    'no': '取消'
+                }];
+            }
+            ;
+            var btnstr = '';
+            for (var i = 0, l = settings.buttons.length; i < l; i++) {
+                var item = settings.buttons[i];
+                if (item.yes) {
+                    btnstr += '<td><button class="ui-prompt-submit " data-type="yes">' + item.yes + '</button></td>';
+                }
+                if (item.no) {
+                    btnstr += '<td><button class="ui-prompt-no" data-type="no">' + item.no + '</button></td>';
+                }
+                if (item.close) {
+                    btnstr += '<td><button class="ui-prompt-close js-dialog-close" data-type="close">' + item.close + '</button></td>';
+                }
+            }
+            action = '<table class="ui-dialog-action"><tr>' + btnstr + '</tr></table>';
+            if (settings.position == "bottom") {
+                html = action + html;
+            } else {
+                html += action;
+            }
+            var options = $.extend({
+                target: html,
+                animate: true,
+                show: true,
+                fixed: true,
+                mask: true,
+                className: "ui-alert",
+                afterHide: function(c) {
+                    this.dispose();
+                },
+                beforeShow: function(c) {
+                    // dialog.inputCheck($('.ui-prompt-input'), false);
+                    dialog.touch($('.ui-prompt-submit', c), function() {
+                        if (true) {
+                            settings.callback && settings.callback.call(dialog, 'yes', $('.ui-prompt-input').val(), c);
+                        }
+
+                    });
+                    dialog.touch($('.ui-prompt-no', c), function() {
+                        settings.callback && settings.callback.call(dialog, 'no', $('.ui-prompt-input').val(), c);
+                    });
+                    dialog.touch($('.ui-prompt-close', c), function() {
                         settings.callback && settings.callback.call(dialog, 'close', $('.ui-prompt-input').val(), c);
                     });
 
@@ -256,14 +324,14 @@
                 show: true,
                 mask: true,
                 className: className,
-                afterHide: function (c) {
+                afterHide: function(c) {
                     this.dispose();
                     settings.callback && settings.callback();
                 }
             }, settings);
             alert.init(alertOptions);
             if (settings.timer) {
-                setTimeout(function () {
+                setTimeout(function() {
                     alert.dispose();
                     settings.callback && settings.callback();
                 }, settings.timer);
@@ -273,10 +341,10 @@
             var dialog = new Dialog();
             var ImgLoad = new Image();
             ImgLoad.src = settings.content;
-            ImgLoad.onerror = function () {
+            ImgLoad.onerror = function() {
                 console.log('图片加载失败不会显示');
             }
-            ImgLoad.onload = function () {
+            ImgLoad.onload = function() {
                 var html = '<div class="ui-imgad-title"><img src=' + ImgLoad.src + '></div>';
                 var className = 'ui-imgad';
 
@@ -288,11 +356,11 @@
                     show: true,
                     mask: true,
                     className: className,
-                    afterHide: function (c) {
+                    afterHide: function(c) {
                         this.dispose();
                     },
-                    beforeShow: function (c) {
-                        dialog.touch($('.ui-imgad-no', c), function () {
+                    beforeShow: function(c) {
+                        dialog.touch($('.ui-imgad-no', c), function() {
                             settings.callback && settings.callback.call(dialog, 'no', c);
                         });
                     }
@@ -300,13 +368,13 @@
                 dialog.init(alertOptions);
             }
             //img加载延时，需要回调处理，先延时加载
-            $('.ui-imgad-title img').load(function () {
+            $('.ui-imgad-title img').load(function() {
                 dialog.setPosition()
             });
         }
     };
     /*alert*/
-    $.alert = function (content, button, callback, timer, settings) {
+    $.alert = function(content, button, callback, timer, settings) {
         var options = {};
         var defaults = {
             zIndex: 100,
@@ -329,7 +397,7 @@
     /*
     buttons :[{yes:"确定"},{no:'取消'},{close:'关闭'}]
     */
-    $.confirm = function (content, buttons, callback, settings) {
+    $.confirm = function(content, buttons, callback, settings) {
         var options = {};
         var defaults = {
             zIndex: 100,
@@ -351,7 +419,7 @@
     /**
      * 带有输入框的弹窗
      */
-    $.prompt = function (content, buttons, callback, settings) {
+    $.prompt = function(content, buttons, callback, settings) {
         var options = {};
         var defaults = {
             zIndex: 100,
@@ -381,9 +449,39 @@
     }
 
     /**
+     * 按照方格输入的input
+     * @param content
+     * @param buttons
+     * @param callback
+     * @param settings
+     */
+    $.pwinput = function(content, buttons, callback, settings) {
+        var options = {};
+        var defaults = {
+            zIndex: 100,
+            type: 'pwinput'
+        };
+        if (content) {
+            if (!content.bar) {
+                content.bar = '标题';
+            }
+        } else {
+            throw new Error('You need to set the param "content"')
+        }
+
+        options = $.extend(defaults, content, {
+            buttons: buttons,
+            width: 283,
+            callback: callback
+        });
+
+        $.Dialog($.extend(options, settings));
+    }
+
+    /**
      * 一个正常的toast，可设置long,short
      */
-    $.toast = function (content, timer, callback, settings) {
+    $.toast = function(content, timer, callback, settings) {
         var options = {};
         var _timer = timer ? timer : 3000
         var defaults = {
@@ -409,7 +507,7 @@
     /**
      * 协议弹窗，同意，取消，免责声明
      */
-    $.declare = function (content, buttons, callback, settings) {
+    $.declare = function(content, buttons, callback, settings) {
         var options = {};
         var defaults = {
             zIndex: 100,
@@ -428,7 +526,7 @@
     /**
      * 弹窗广告
      */
-    $.imgad = function (content, callback, settings) {
+    $.imgad = function(content, callback, settings) {
         var options = {};
         var defaults = {
             zIndex: 100,
@@ -449,7 +547,7 @@
     }
 
 
-    var Dialog = function () {
+    var Dialog = function() {
         var rnd = Math.random().toString().replace('.', '');
         this.id = 'dialog_' + rnd;
         this.settings = {};
@@ -460,7 +558,7 @@
         this.mask = $();
     }
     Dialog.prototype = {
-        init: function (settings) {
+        init: function(settings) {
             var _this = this;
             this.settings = $.extend({
                 fixed: false //是否固定位置，
@@ -494,7 +592,7 @@
                 this.show();
             }
         },
-        touch: function (obj, fn) {
+        touch: function(obj, fn) {
             var move;
             //在某些浏览器里，如微信旧版本的iphone5s会出现闪一下就消失
             // $(obj).on('click', click);
@@ -503,9 +601,9 @@
                 return fn.call(this, e);
             }
 
-            $(obj).on('touchmove', function (e) {
+            $(obj).on('touchmove', function(e) {
                 move = true;
-            }).on('touchend', function (e) {
+            }).on('touchend', function(e) {
                 e.preventDefault();
                 if (!move) {
                     var returnvalue = fn.call(this, e, 'touch');
@@ -517,7 +615,7 @@
                 move = false;
             });
         },
-        inputCheck: function (obj, shownull) {
+        inputCheck: function(obj, shownull) {
             var pattern = /^[\u4e00-\u9fa5_a-zA-Z0-9_]+$/;
             var flag = true;
 
@@ -555,48 +653,48 @@
                 }
             }
 
-            $(obj).on('input', function () {
+            $(obj).on('input', function() {
                 check(true);
             });
             check(shownull);
             return flag;
         },
-        bindEvent: function () {
+        bindEvent: function() {
             var _this = this;
             if (this.settings.trigger) {
-                $(this.settings.trigger).click(function () {
+                $(this.settings.trigger).click(function() {
                     _this.show()
                 });
-                _this.touch($(this.settings.trigger), function () {
+                _this.touch($(this.settings.trigger), function() {
                     _this.show()
                 });
             }
             ;
-            $(this.dialogContainer).on('click', '.js-dialog-close', function () {
+            $(this.dialogContainer).on('click', '.js-dialog-close', function() {
                 _this.hide();
                 return false;
             })
-            $(window).resize(function () {
+            $(window).resize(function() {
                 _this.setPosition();
             });
-            $(window).scroll(function () {
+            $(window).scroll(function() {
                 _this.setPosition();
             })
-            $(document).keydown(function (e) {
+            $(document).keydown(function(e) {
                 if (e.keyCode === 27 && _this.showed) {
                     _this.hide();
                 }
             });
-            $(this.dialogContainer).on('hide', function () {
+            $(this.dialogContainer).on('hide', function() {
                 _this.hide();
             })
         },
-        dispose: function () {
+        dispose: function() {
             this.dialogContainer.remove();
             this.mask.remove();
             this.timer && clearInterval(this.timer);
         },
-        hide: function () {
+        hide: function() {
             var _this = this;
             if (_this.settings.beforeHide) {
                 _this.settings.beforeHide.call(_this, _this.dialogContainer);
@@ -606,7 +704,7 @@
             this.timer && clearInterval(this.timer);
             if (this.settings.animate) {
                 this.dialogContainer.removeClass('zoomIn').addClass("zoomOut");
-                setTimeout(function () {
+                setTimeout(function() {
                     _this.dialogContainer.hide();
                     if (typeof _this.settings.target === "object") {
                         $('body').append(_this.dialogContainer.hide());
@@ -625,7 +723,7 @@
                 }
             }
         },
-        show: function () {
+        show: function() {
             if (typeof this.settings.target === "string") {
                 if (/^(\.|\#\w+)/gi.test(this.settings.target)) {
                     this.dailogContent = $(this.settings.target);
@@ -654,7 +752,7 @@
             // $.alert(this.settings.clientWidth)
             this.timer && clearInterval(this.timer);
             if (this.settings.fixed) {
-                this.timer = setInterval(function () {
+                this.timer = setInterval(function() {
                     _this.setPosition();
                 }, 1000);
             }
@@ -662,7 +760,7 @@
                 this.dialogContainer.addClass('zoomIn').removeClass('zoomOut').addClass('animated');
             }
         },
-        setPosition: function () {
+        setPosition: function() {
             if (this.showed) {
                 var _this = this;
                 this.dialogContainer.show();

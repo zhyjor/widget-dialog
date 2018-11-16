@@ -109,7 +109,7 @@
   width: 350px;
   background-color: #fff; }
 
-.ui-confirm-title, .ui-alert-title, .ui-declare-title, .ui-prompt-title, .ui-toast-title, .ui-imgad-title {
+.ui-confirm-title, .ui-alert-title, .ui-declare-title, .ui-prompt-title, .ui-pwinput-title, .ui-toast-title, .ui-imgad-title {
   text-align: center;
   font-size: 14px;
   color: #333;
@@ -181,7 +181,7 @@
     color: #fff !important;
     padding: 27px 25px; }
 
-.ui-declare-head, .ui-prompt-head {
+.ui-declare-head, .ui-prompt-head, .ui-pwinput-head {
   height: 45px;
   line-height: 45px;
   border-collapse: collapse;
@@ -193,7 +193,7 @@
   padding: 0;
   margin: 0; }
 
-.ui-declare-title, .ui-prompt-title, .ui-toast-title {
+.ui-declare-title, .ui-prompt-title, .ui-pwinput-title, .ui-toast-title {
   padding-left: 10px;
   padding-right: 10px;
   max-height: 300px;
@@ -219,6 +219,28 @@
   border: 1px solid rgba(0, 0, 0, 0.3); }
 .ui-prompt-title span {
   color: red; }
+
+.ui-pwinput-title {
+  color: #6a6f77; }
+  .ui-pwinput-title .ui-pwinput-input {
+    font-size: 16px;
+    height: 1.8em;
+    width: 1.4em;
+    padding: 0;
+    text-align: center;
+    outline: none;
+    border: none;
+    border-right: 1px solid rgba(225, 225, 225, 0.5);
+    border-top: 1px solid rgba(225, 225, 225, 0.5);
+    border-bottom: 1px solid rgba(225, 225, 225, 0.5);
+    border-radius: 0; }
+  .ui-pwinput-title .ui-pwinput-input:first-child {
+    border-left: 1px solid rgba(225, 225, 225, 0.5); }
+  .ui-pwinput-title input {
+    -web-kit-appearance: none;
+    -moz-appearance: none;
+    outline: 0;
+    text-decoration: none; }
 
 .ui-imgad-title {
   padding-left: 10px;
