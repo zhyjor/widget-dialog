@@ -248,7 +248,7 @@
             var inputHtml = ''
             if (settings.inputLength) {
                 for (var i = 0; i < settings.inputLength; i++) {
-                    inputHtml += '<input class="ui-pwinput-input" value="1">'
+                    inputHtml += '<input class="ui-pwinput-input" index="'+ i +'" type="number">'
                 }
             }
             var html = ' <div class="ui-pwinput-head">' + settings.bar + '</div>' +
@@ -267,13 +267,13 @@
             for (var i = 0, l = settings.buttons.length; i < l; i++) {
                 var item = settings.buttons[i];
                 if (item.yes) {
-                    btnstr += '<td><button class="ui-prompt-submit " data-type="yes">' + item.yes + '</button></td>';
+                    btnstr += '<td><button class="ui-pwinput-submit " data-type="yes">' + item.yes + '</button></td>';
                 }
                 if (item.no) {
-                    btnstr += '<td><button class="ui-prompt-no" data-type="no">' + item.no + '</button></td>';
+                    btnstr += '<td><button class="ui-pwinput-no" data-type="no">' + item.no + '</button></td>';
                 }
                 if (item.close) {
-                    btnstr += '<td><button class="ui-prompt-close js-dialog-close" data-type="close">' + item.close + '</button></td>';
+                    btnstr += '<td><button class="ui-pwinput-close js-dialog-close" data-type="close">' + item.close + '</button></td>';
                 }
             }
             action = '<table class="ui-dialog-action"><tr>' + btnstr + '</tr></table>';
@@ -293,17 +293,18 @@
                     this.dispose();
                 },
                 beforeShow: function(c) {
+                    dialog.initPWInput($('.ui-pwinput-title'));
                     // dialog.inputCheck($('.ui-prompt-input'), false);
-                    dialog.touch($('.ui-prompt-submit', c), function() {
+                    dialog.touch($('.ui-pwinput-submit', c), function() {
                         if (true) {
                             settings.callback && settings.callback.call(dialog, 'yes', $('.ui-prompt-input').val(), c);
                         }
 
                     });
-                    dialog.touch($('.ui-prompt-no', c), function() {
+                    dialog.touch($('.ui-pwinput-no', c), function() {
                         settings.callback && settings.callback.call(dialog, 'no', $('.ui-prompt-input').val(), c);
                     });
-                    dialog.touch($('.ui-prompt-close', c), function() {
+                    dialog.touch($('.ui-pwinput-close', c), function() {
                         settings.callback && settings.callback.call(dialog, 'close', $('.ui-prompt-input').val(), c);
                     });
 
@@ -614,6 +615,19 @@
                 }
                 move = false;
             });
+        },
+        initPWInput: function(obj) {
+            $(".ui-pwinput-input[index=0]").focus()
+            var length = obj.children('input').length;
+            $(".ui-pwinput-input").on('input',function(e) {
+                console.log($(this).attr('index'))
+                if($(this).val())
+                console.log($(".ui-pwinput-input[index=2]").focus())
+
+            })
+            for (var i = 0; i <= length - 1; i++) {
+
+            }
         },
         inputCheck: function(obj, shownull) {
             var pattern = /^[\u4e00-\u9fa5_a-zA-Z0-9_]+$/;

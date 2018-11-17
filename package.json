@@ -4,6 +4,10 @@
   "description": "js dialog",
   "version": "2.1.1",
   "git": "https://github.com/tianxiangbing/dialog",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node http.js"
+  },
   "author": {
     "name": "田想兵",
     "email": "55342775@qq.com",
@@ -19,9 +23,5 @@
     "grunt-contrib-uglify": "~0.4.0",
     "grunt-contrib-watch": "^1.0.0",
     "jquery": "~1.9.1"
-  },
-  "scripts": {
-    "prestart": "npm install",
-    "start": "node http.js"
   }
 }
