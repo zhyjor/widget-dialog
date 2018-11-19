@@ -245,12 +245,11 @@
         }
         if (settings.type === "pwinput") {
             var dialog = new Dialog();
-            var inputHtml = ''
-            if (settings.inputLength) {
-                for (var i = 0; i < settings.inputLength; i++) {
-                    inputHtml += '<input class="ui-pwinput-input" index="'+ i +'" type="number">'
-                }
-            }
+            var inputHtml =
+                '<div class="security-code-wrap">' +
+                '<label for="code"><ul id="ulCode" class="line-container security-code-container"></ul></label>' +
+                '<input ref="input" class="input-code" id="code" type="tel" maxlength="' + settings.inputLength + '" autocorrect="off" autocomplete="off" autocapitalize="off">' +
+                '</div>'
             var html = ' <div class="ui-pwinput-head">' + settings.bar + '</div>' +
                 '<div class="ui-pwinput-title">' +
                 inputHtml + '</div>';
@@ -293,19 +292,19 @@
                     this.dispose();
                 },
                 beforeShow: function(c) {
-                    dialog.initPWInput($('.ui-pwinput-title'));
+                    dialog.initPWInput(settings.inputLength);
                     // dialog.inputCheck($('.ui-prompt-input'), false);
                     dialog.touch($('.ui-pwinput-submit', c), function() {
-                        if (true) {
-                            settings.callback && settings.callback.call(dialog, 'yes', $('.ui-prompt-input').val(), c);
+                        if (dialog.checkPWInput($('#code'), settings.inputLength)) {
+                            settings.callback && settings.callback.call(dialog, 'yes', $('#code').val(), c);
                         }
 
                     });
                     dialog.touch($('.ui-pwinput-no', c), function() {
-                        settings.callback && settings.callback.call(dialog, 'no', $('.ui-prompt-input').val(), c);
+                        settings.callback && settings.callback.call(dialog, 'no', $('#code').val(), c);
                     });
                     dialog.touch($('.ui-pwinput-close', c), function() {
-                        settings.callback && settings.callback.call(dialog, 'close', $('.ui-prompt-input').val(), c);
+                        settings.callback && settings.callback.call(dialog, 'close', $('#code').val(), c);
                     });
 
                 }
@@ -616,18 +615,49 @@
                 move = false;
             });
         },
-        initPWInput: function(obj) {
-            $(".ui-pwinput-input[index=0]").focus()
-            var length = obj.children('input').length;
-            $(".ui-pwinput-input").on('input',function(e) {
-                console.log($(this).attr('index'))
-                if($(this).val())
-                console.log($(".ui-pwinput-input[index=2]").focus())
 
-            })
-            for (var i = 0; i <= length - 1; i++) {
-
+        checkPWInput: function(obj, maxLength) {
+            if (obj.val().length < maxLength) {
+                return false
+            } else {
+                return true
             }
+        },
+
+        initPWInput: function(inputMaxLength) {
+            function hideKeyboard() {
+                // 输入完成隐藏键盘
+                document.activeElement.blur() // ios隐藏键盘
+                $('#code').blur() // android隐藏键盘
+            }
+
+            function getUlElem(obj, value) {
+                var liHtml = ''
+                for (var i = 0; i < inputMaxLength; i++) {
+                    liHtml += '<li class="field-wrap">' +
+                        '<i class="char-field">' + (value[i] ? value[i] : "-") + '</i>' +
+                        '</li>'
+                }
+                obj.html(liHtml)
+            }
+
+            getUlElem($('#ulCode'), '')
+
+            $('#code').keyup(function(e) {
+                var valCurrent = e.target.value
+
+                var pattern = /^[0-9]+$/;
+
+                if (!pattern.test(valCurrent) ) {
+                    valCurrent = valCurrent.slice(0,-1)
+                    $('#code').val(valCurrent)
+                }
+                getUlElem($('#ulCode'), valCurrent)
+
+                if (valCurrent.length >= inputMaxLength) {
+                    hideKeyboard()
+                }
+            })
         },
         inputCheck: function(obj, shownull) {
             var pattern = /^[\u4e00-\u9fa5_a-zA-Z0-9_]+$/;

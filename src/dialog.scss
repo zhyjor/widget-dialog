@@ -41,7 +41,7 @@
 .ui-dialog-action td{text-align: center;border:none;}
 .ui-dialog-action {
 	button,a{background-color: #fff;display:block;width:100%;height:100%;color:#47b5ca;border:none;outline: none;cursor: pointer;box-sizing: border-box;padding:0;}
-	.ui-confirm-close,.ui-confirm-no,.ui-declare-close,.ui-declare-no,.ui-prompt-close,.ui-prompt-no{color:#747474;border-left:1px solid #dcdcdc;}
+	.ui-confirm-close,.ui-confirm-no,.ui-declare-close,.ui-declare-no,.ui-prompt-close,.ui-prompt-no,.ui-pwinput-no{color:#747474;border-left:1px solid #dcdcdc;}
 }
 .ui-alert,.ui-toast{border-radius: 5px;overflow: hidden;}
 .ui-alert .ui-dialog-close{display: none;}
@@ -64,25 +64,68 @@
 }
 .ui-pwinput-title{
 	color:rgb(106,111,119);
-	.ui-pwinput-input{
-		font-size: 16px;
-		height: 1.8em;
-		width: 1.4em;
-		padding:0;
-		text-align: center;
-		outline:none;
-		border: none;
-		border-right: 1px solid rgba(225,225,225,0.5);
-		border-top: 1px solid rgba(225,225,225,0.5);
-		border-bottom: 1px solid rgba(225,225,225,0.5);
-		border-radius: 0;
+	.security-code-wrap {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
-	.ui-pwinput-input:first-child{
-		border-left: 1px solid rgba(225,225,225,0.5);
+
+	.security-code-container {
+		margin: 0;
+		padding: 0;
+		display: flex;
+		.field-wrap {
+			list-style: none;
+			display: block;
+			height: 40px;
+			width: 25px;
+			line-height: 40px;
+			font-size: 16px;
+			text-align: center;
+			.char-field {
+				font-style: normal;
+			}
+		}
 	}
-	input{
-		-web-kit-appearance:none;  -moz-appearance: none; outline:0;    text-decoration:none;
+	.line-container {
+		position: relative;
+		background-color: #fff;
+		&:after {
+			box-sizing: border-box;
+			content: "";
+			width: 200%;
+			height: 200%;
+			transform: scale(.5);
+			position: absolute;
+			border: 1px solid #d9d9d9;
+			top: 0;
+			left: 0;
+			transform-origin: 0 0;
+			border-radius: 4px;
+		}
+		.field-wrap {
+			flex: 1;
+			position: relative;
+			&:not(:last-child):after {
+				content: "";
+				width: 1px;
+				height: 50%;
+				position: absolute;
+				right: 0;
+				top: 25%;
+				background-color: #d9d9d9;
+				transform: scaleX(.5);
+			}
+		}
 	}
+
+	.input-code {
+		position: absolute;
+        clip: rect(0,0,0,0);
+		//left: -9999px;
+		//top: -9999px;
+	}
+
 }
 .ui-imgad-title{padding-left: 10px;padding-right: 10px;max-height: 500px;overflow: auto}
 .ui-toast-title,.ui-imgad-title{text-align: center;padding: 0;color: white;border-radius: 5px;}
@@ -93,3 +136,5 @@
 }
 .ui-imgad {background: rgba(0,0,0,0)}
 .ui-toast-title{line-height: 1.2;padding: 10px 20px}
+
+

@@ -156,7 +156,7 @@
   cursor: pointer;
   box-sizing: border-box;
   padding: 0; }
-.ui-dialog-action .ui-confirm-close, .ui-dialog-action .ui-confirm-no, .ui-dialog-action .ui-declare-close, .ui-dialog-action .ui-declare-no, .ui-dialog-action .ui-prompt-close, .ui-dialog-action .ui-prompt-no {
+.ui-dialog-action .ui-confirm-close, .ui-dialog-action .ui-confirm-no, .ui-dialog-action .ui-declare-close, .ui-dialog-action .ui-declare-no, .ui-dialog-action .ui-prompt-close, .ui-dialog-action .ui-prompt-no, .ui-dialog-action .ui-pwinput-no {
   color: #747474;
   border-left: 1px solid #dcdcdc; }
 
@@ -222,25 +222,54 @@
 
 .ui-pwinput-title {
   color: #6a6f77; }
-  .ui-pwinput-title .ui-pwinput-input {
-    font-size: 16px;
-    height: 1.8em;
-    width: 1.4em;
+  .ui-pwinput-title .security-code-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .ui-pwinput-title .security-code-container {
+    margin: 0;
     padding: 0;
-    text-align: center;
-    outline: none;
-    border: none;
-    border-right: 1px solid rgba(225, 225, 225, 0.5);
-    border-top: 1px solid rgba(225, 225, 225, 0.5);
-    border-bottom: 1px solid rgba(225, 225, 225, 0.5);
-    border-radius: 0; }
-  .ui-pwinput-title .ui-pwinput-input:first-child {
-    border-left: 1px solid rgba(225, 225, 225, 0.5); }
-  .ui-pwinput-title input {
-    -web-kit-appearance: none;
-    -moz-appearance: none;
-    outline: 0;
-    text-decoration: none; }
+    display: flex; }
+    .ui-pwinput-title .security-code-container .field-wrap {
+      list-style: none;
+      display: block;
+      height: 40px;
+      width: 25px;
+      line-height: 40px;
+      font-size: 16px;
+      text-align: center; }
+      .ui-pwinput-title .security-code-container .field-wrap .char-field {
+        font-style: normal; }
+  .ui-pwinput-title .line-container {
+    position: relative;
+    background-color: #fff; }
+    .ui-pwinput-title .line-container:after {
+      box-sizing: border-box;
+      content: "";
+      width: 200%;
+      height: 200%;
+      transform: scale(0.5);
+      position: absolute;
+      border: 1px solid #d9d9d9;
+      top: 0;
+      left: 0;
+      transform-origin: 0 0;
+      border-radius: 4px; }
+    .ui-pwinput-title .line-container .field-wrap {
+      flex: 1;
+      position: relative; }
+      .ui-pwinput-title .line-container .field-wrap:not(:last-child):after {
+        content: "";
+        width: 1px;
+        height: 50%;
+        position: absolute;
+        right: 0;
+        top: 25%;
+        background-color: #d9d9d9;
+        transform: scaleX(0.5); }
+  .ui-pwinput-title .input-code {
+    position: absolute;
+    clip: rect(0, 0, 0, 0); }
 
 .ui-imgad-title {
   padding-left: 10px;

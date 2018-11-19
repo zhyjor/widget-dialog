@@ -1,0 +1,61 @@
+.security-code-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.security-code-container {
+  margin: 0;
+  padding: 0;
+  display: flex; }
+  .security-code-container .field-wrap {
+    list-style: none;
+    display: block;
+    height: 40px;
+    width: 25px;
+    line-height: 40px;
+    font-size: 16px;
+    text-align: center; }
+    .security-code-container .field-wrap .char-field {
+      font-style: normal; }
+
+.block-container {
+  justify-content: center; }
+  .block-container .field-wrap {
+    background-color: #fff;
+    margin: 2px;
+    color: #000; }
+
+.line-container {
+  position: relative;
+  background-color: #fff; }
+  .line-container:after {
+    box-sizing: border-box;
+    content: "";
+    width: 200%;
+    height: 200%;
+    transform: scale(0.5);
+    position: absolute;
+    border: 1px solid #d9d9d9;
+    top: 0;
+    left: 0;
+    transform-origin: 0 0;
+    border-radius: 4px; }
+  .line-container .field-wrap {
+    flex: 1;
+    position: relative; }
+    .line-container .field-wrap:not(:last-child):after {
+      content: "";
+      width: 1px;
+      height: 50%;
+      position: absolute;
+      right: 0;
+      top: 25%;
+      background-color: #d9d9d9;
+      transform: scaleX(0.5); }
+
+.input-code {
+  position: absolute;
+  left: -9999px;
+  top: -9999px; }
+
+/*# sourceMappingURL=test.css.map */
