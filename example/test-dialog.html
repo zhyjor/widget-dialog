@@ -53,20 +53,20 @@ var txt = ' 任何用户在使用搜狗网站（www.sogou.com）搜索引擎服�
 //     console.log(11)
 // })
 
-// $.prompt({bar: "新建价格分组", content: '', placeholder: '新建价格分组'}, null, function (type, input, c) {
-//     if (type == 'yes') {
-//         $.toast(input, 3000, function () {
-//             console.log(c)
-//         })
-//         this.hide();
-//     } else {
-//         $.toast(input, 3000, function () {
-//
-//             console.log(c)
-//         })
-//         this.hide();
-//     }
-// })
+$.prompt({bar: "新建价格分组", content: '', placeholder: '新建价格分组'}, null, function (type, input, c) {
+    if (type == 'yes') {
+        $.toast(input, 3000, function () {
+            console.log(c)
+        })
+        this.hide();
+    } else {
+        $.toast(input, 3000, function () {
+
+            console.log(c)
+        })
+        this.hide();
+    }
+})
 
 $.pwinput({bar: "请输入验证码", inputLength: 6, isPwd: false}, null, function (type, input, c) {
     if (type == 'yes') {
